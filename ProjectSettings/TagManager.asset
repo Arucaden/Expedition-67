@@ -2,13 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - 
@@ -41,3 +42,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 3569256791
+    locked: 0
+  - name: Wall
+    uniqueID: 3026712075
+    locked: 0
+  - name: Objects
+    uniqueID: 3264985143
+    locked: 0
+  - name: Player
+    uniqueID: 4224787327
+    locked: 0
+  - name: FX
+    uniqueID: 928313121
+    locked: 0
+  - name: UI
+    uniqueID: 2383130143
+    locked: 0
+  m_RenderingLayers:
+  - Default
