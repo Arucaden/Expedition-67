@@ -48,6 +48,7 @@ Kontrol utama game ini (menggunakan keyboard):
 **Tantangan Terbesar Selama Pengerjaan**
 - Perencanaan dan perhitungan logika vision of cone, karena harus customizable (radius dsb), jadi saya mencari cara yang masih masuk akal namun tetap bisa dimengerti secara code, yaitu menggunakan Light2D sebagai visual yang bisa dicustom
 - Unity tidak support Navmesh di 2D, kalau membuat algoritma pathfinding sepertinya waktunya tidak cukup, beruntung saya menemukan plugin gratis: [NavMeshPlus](https://github.com/h8man/NavMeshPlus) (saya merekomendasikan karena mudah digunakan).
+- Sidang skripsi dimajukan🗿
 
 
 **Deskripsi State Machine**
