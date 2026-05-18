@@ -1502,6 +1502,10 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4505764338406496469, guid: 576b5262117fe874e8792d3da6939842, type: 3}
+      propertyPath: communicationRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505764338406496469, guid: 576b5262117fe874e8792d3da6939842, type: 3}
       propertyPath: patrolPoints.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1825,6 +1829,10 @@ PrefabInstance:
     - target: {fileID: 2526180652247824783, guid: 576b5262117fe874e8792d3da6939842, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505764338406496469, guid: 576b5262117fe874e8792d3da6939842, type: 3}
+      propertyPath: communicationRadius
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4505764338406496469, guid: 576b5262117fe874e8792d3da6939842, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
@@ -17707,6 +17715,10 @@ PrefabInstance:
     - target: {fileID: 2526180652247824783, guid: 576b5262117fe874e8792d3da6939842, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4505764338406496469, guid: 576b5262117fe874e8792d3da6939842, type: 3}
+      propertyPath: communicationRadius
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4505764338406496469, guid: 576b5262117fe874e8792d3da6939842, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'

@@ -10,8 +10,8 @@ Kontrol utama game ini (menggunakan keyboard):
 - Navigasi UI       : Menggunakan mouse untuk klik tombol pada main menu ataupun in-game UI.
 
 **Kondisi Menang dan Kalah**
-- Menang (Win Condition): Pemain berhasil mencapai titik akhir level atau menyelesaikan objektif utama tanpa tertangkap.
-- Kalah (Lose Condition/Game Over): Pemain tertangkap oleh penjaga, yaitu masuk ke dalam detection cone musuh selama beberapa detik.
+- Menang (Win Condition): player berhasil mencapai titik akhir level atau menyelesaikan objektif utama tanpa tertangkap.
+- Kalah (Lose Condition/Game Over): player tertangkap oleh penjaga, yaitu masuk ke dalam detection cone musuh selama beberapa detik.
 
 **Fitur yang Berhasil Diimplementasikan (berdasarkan requirements)**
 - Player movement top-down dengan walk speed modifier (crouch atau sneak mechanic).✅
@@ -43,6 +43,8 @@ Kontrol utama game ini (menggunakan keyboard):
 - Secara design saya belum pernah membuat game horror atau hide and seek seperti ini, jadi saya perlu belajar lebih lagi agar tahu bagaimana membuat design yang bagus serta mengatur parameter yang tepat, karena design dan parameter game ini dibuat dengan feeling tanpa riset yang mendalam.
 - Implementasi semua yang ada di POIN PLUS, karena menurut saya semua poin tersebut jika di implementasikan baru bisa disebut game yang playable dan bisa dinilai secara keseluruhan apakah gamenya seru atau tidak.
 - Menambah map dan mechanic lainnya (game yang bagus tidak mungkin hanya punya satu level)
+- Cursor tidak hilang saat game berlangsung (jujur saya lupa implementasi)
+- Merapihkan kode karena beberapa logic masih amburadul dikarenakan saya menganggap projectnya masih prototype dan tidak tahu arah pengembangannya (contoh: saya tidak memakai animation controller, untuk menentukan arah player, visual musuh seperti ular, debug dan null checker yang kurang)
 
 
 **Tantangan Terbesar Selama Pengerjaan**
@@ -57,21 +59,21 @@ Kontrol utama game ini (menggunakan keyboard):
 
 Sistem AI dibangun menggunakan Finite State Machine (FSM) untuk mengatur perilaku penjaga dengan rapi:
 1. Idle         : Penjaga akan berpatroli mengikuti titik jalan (waypoints) yang sudah ditentukan. Jika tidak ada titik, penjaga akan diam di tempat.
-2. Suspicious   : Saat penjaga mendengar suara (walking noise dari player), penjaga akan berhenti patroli dan bergerak mencari ke sumber gangguan tersebut (Last known player position). Penjaga akan kembali ke state idle jika tidak menemukan pemain setelah beberapa detik.
-3. Alert        : Penjaga mendeteksi keberadaan player (ketika player berada didalam vision cone). Penjaga akan langsung mengejar pemain.
+2. Suspicious   : Saat penjaga mendengar suara (walking noise dari player), penjaga akan berhenti patroli dan bergerak mencari ke sumber gangguan tersebut (Last known player position). Penjaga akan kembali ke state idle jika tidak menemukan player setelah beberapa detik.
+3. Alert        : Penjaga mendeteksi keberadaan player (ketika player berada didalam vision cone). Penjaga akan langsung mengejar player.
 
 :::mermaid
 stateDiagram-v2
     Idle --> Suspicious     : Mendengar suara
-    Idle --> Alert          : Melihat pemain dengan jelas
-    Suspicious --> Alert    : Melihat pemain dengan jelas
-    Suspicious --> Idle     : Tidak menemukan pemain
-    Alert --> Suspicious    : Kehilangan jejak pemain
+    Idle --> Alert          : Melihat player dengan jelas
+    Suspicious --> Alert    : Melihat player dengan jelas
+    Suspicious --> Idle     : Tidak menemukan player
+    Alert --> Suspicious    : Kehilangan jejak player
 :::
 
 **Kalkulasi Vision of cone dan Noise**
-- Vision: dihitung menggunakan pengecekan jarak radius dan sudut pandang (vision of cone). Jika pemain masuk ke dalam area cone, sistem akan menembakkan Raycast ke arah pemain. Jika garis lurus ini tidak mengenai dinding atau halangan, maka pemain dipastikan terlihat.
-- Noise: Pemain memiliki ukuran radius suara yang berbeda saat berjalan biasa dan saat sneaking. Setiap bergerak, pemain membuat noise di sekitarnya (sesuai settingan radius). Jika ada penjaga yang berada di dalam radius suara ini, penjaga tersebut akan mendapatkan informasi posisi sumber suara dan menjadi curiga.
+- Vision: dihitung menggunakan pengecekan jarak radius dan sudut pandang (vision of cone). Jika player masuk ke dalam area cone, sistem akan menembakkan Raycast ke arah player. Jika garis lurus ini tidak mengenai dinding atau halangan, maka player dipastikan terlihat.
+- Noise: player memiliki ukuran radius suara yang berbeda saat berjalan biasa dan saat sneaking. Setiap bergerak, player membuat noise di sekitarnya (sesuai settingan radius). Jika ada penjaga yang berada di dalam radius suara ini, penjaga tersebut akan mendapatkan informasi posisi sumber suara dan menjadi curiga.
 
 Current Atributte:
 - Walk Speed: 5
@@ -80,11 +82,11 @@ Current Atributte:
 - Sneak Noise Radius: 0
   
 **Mekanisme Komunikasi Antar Guard**
-Sistem komunikasi dibuat agar penjaga tidak bekerja sendirian. Saat satu penjaga menyadari kehadiran pemain dan masuk ke state Alert, penjaga tersebut akan memancarkan sinyal alarm dalam radius tertentu. Penjaga lain yang menangkap sinyal ini akan langsung merespon dengan beralih ke state Suspicious dan bergerak menuju lokasi penjaga yang membunyikan alarm.
+Sistem komunikasi dibuat agar penjaga tidak bekerja sendirian. Saat satu penjaga menyadari kehadiran player dan masuk ke state Alert, penjaga tersebut akan memancarkan sinyal alarm dalam radius tertentu. Penjaga lain yang menangkap sinyal ini akan langsung merespon dengan beralih ke state Suspicious dan bergerak menuju lokasi penjaga yang membunyikan alarm.
 
 :::mermaid
 flowchart TD
-    GuardA[Penjaga 1 Melihat Pemain]
+    GuardA[Penjaga 1 Melihat player]
     GuardA --> Broadcast[Kirim Sinyal Alarm]
     Broadcast --> GuardB[Penjaga 2 di Radius]
     Broadcast --> GuardC[Penjaga 3 di Radius]
